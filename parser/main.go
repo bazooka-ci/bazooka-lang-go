@@ -189,11 +189,11 @@ func resolveGoImage(version string) (string, error) {
 	return "", fmt.Errorf("Unable to find Bazooka Docker Image for Go Runnner %s\n", version)
 }
 
-func flattenEnvMap(mapp map[string][]string) []string {
-	res := []string{}
+func flattenEnvMap(mapp map[string][]string) []bazooka.BzkString {
+	res := []bazooka.BzkString{}
 	for key, values := range mapp {
 		for _, value := range values {
-			res = append(res, fmt.Sprintf("%s=%s", key, value))
+			res = append(res, bazooka.BzkString(fmt.Sprintf("%s=%s", key, value)))
 		}
 	}
 	return res
