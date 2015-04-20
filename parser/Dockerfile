@@ -1,7 +1,7 @@
 FROM golang:1.4
 
-ADD . /go/src/github.com/bazooka-ci/bazooka
+ADD . /go/src/github.com/bazooka-ci/
 RUN go get -d -v ./...
-RUN go install -v github.com/bazooka-ci/bazooka/parserlang/golang
+RUN go install -v github.com/bazooka-ci/bazooka-lang-go/parser
 
-CMD ["/go/bin/golang"]
+CMD ["/go/bin/parser"]
