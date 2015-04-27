@@ -6,5 +6,3 @@ for d in */ ; do
       docker build -t "bazooka/runner-golang:${d%?}" .
     popd
 done
-
-docker tag -f bazooka/runner-golang:1.4 bazooka/runner-golang:latest

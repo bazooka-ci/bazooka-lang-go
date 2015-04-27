@@ -1,0 +1,20 @@
+image: bazooka/bzk-build-base-image
+before_install:
+  - cd parser
+install:
+  - go get -d -t -v ./...
+script:
+  - go test -v ./...
+  - errcheck -ignore 'Close|[wW]rite.*|Encode|Flush|Seek|[rR]ead.*' github.com/bazooka-ci/bazooka-lang-go/parser/...
+  - make
+after_success:
+  - docker login -e "$DOCKER_EMAIL" -p "$DOCKER_PASSWORD" -u "$DOCKER_USERNAME"
+  - docker push bazooka/parser-golang
+env:
+  - BZK_BUILD_DIR=/go/src/github.com/bazooka-ci/bazooka-lang-go
+  # DOCKER_USERNAME=****
+  - secure: caf961fef762692536b442c10f2a42838bb3b6ae67bad9fc8301f8cd3dc7639ddbd040575f0e66ad1ab8ff83e6ae2b537fe35a16
+  # DOCKER_PASSWORD=****
+  - secure: 4a15b0860ff4dee846dad0a84c84765c397df583afa805d630d1d35f88bf33e3770032e36ab3d7725ed83a12eb2f3ea550b512883afdfea2
+  # DOCKER_EMAIL=****
+  - secure: d6d3efd025687e9622b61203c84157f0d4bcdbe96013a8425b5207ed44a92c8babcf0e3fb85047fbce64f810ce8b277c33afb3c3de96d956e27e4154ead12faa3518aab685dc8050
