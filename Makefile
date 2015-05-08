@@ -5,5 +5,8 @@ default: parser
 parser:
 	cd parser && make
 
+push-parser:
+	./parser/push.sh
+
 runner:
 	cd runner && make
