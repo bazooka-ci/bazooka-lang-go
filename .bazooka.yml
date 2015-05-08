@@ -8,8 +8,7 @@ script:
   - errcheck -ignore 'Close|[wW]rite.*|Encode|Flush|Seek|[rR]ead.*' github.com/bazooka-ci/bazooka-lang-go/parser/...
   - make
 after_success:
-  - docker login -e "$DOCKER_EMAIL" -p "$DOCKER_PASSWORD" -u "$DOCKER_USERNAME"
-  - docker push bazooka/parser-golang
+  - make push-parser
 env:
   - BZK_BUILD_DIR=/go/src/github.com/bazooka-ci/bazooka-lang-go
   # DOCKER_USERNAME=****
