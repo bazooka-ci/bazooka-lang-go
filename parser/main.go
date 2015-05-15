@@ -148,9 +148,14 @@ func setGodir(conf *ConfigGolang) {
 		"build_directory": buildDir,
 	}).Info("Build directory set")
 
-	env["BZK_BUILD_DIR"] = []string{buildDir}
+	env["BZK_BUILD_DIR"] = []bazooka.BzkString{
+		{Name: "BZK_BUILD_DIR",
+			Value:   buildDir,
+			Secured: false,
+		},
+	}
 
-	conf.Base.Env = flattenEnvMap(env)
+	conf.Base.Env = bazooka.FlattenEnvMap(env)
 }
 
 func setDefaultInstall(conf *ConfigGolang) {
@@ -191,14 +196,4 @@ func resolveGoImage(version string) (string, error) {
 		return val, nil
 	}
 	return "", fmt.Errorf("Unable to find Bazooka Docker Image for Go Runnner %s\n", version)
-}
-
-func flattenEnvMap(mapp map[string][]string) []bazooka.BzkString {
-	res := []bazooka.BzkString{}
-	for key, values := range mapp {
-		for _, value := range values {
-			res = append(res, bazooka.BzkString(fmt.Sprintf("%s=%s", key, value)))
-		}
-	}
-	return res
 }
