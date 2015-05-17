@@ -7,7 +7,6 @@ script:
   - go test -v ./...
   - errcheck -ignore 'Close|[wW]rite.*|Encode|Flush|Seek|[rR]ead.*' github.com/bazooka-ci/bazooka-lang-go/parser/...
   - make
-after_success:
   - make push-parser
 env:
   - BZK_BUILD_DIR=/go/src/github.com/bazooka-ci/bazooka-lang-go
